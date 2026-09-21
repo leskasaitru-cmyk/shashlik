@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a0f08">
+<title>Шашлычная</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --bg: #1a0f08;
+    --bg-soft: #241610;
+    --bg-card: #2a1a12;
+    --text: #fff5e8;
+    --text-muted: #b89980;
+    --orange: #ff7a1a;
+    --orange-light: #ffa04d;
+    --orange-dark: #d95f00;
+    --orange-soft: rgba(255, 122, 26, 0.12);
+    --red: #e63946;
+    --border: #3d2518;
+    --shadow-hover: rgba(255, 122, 26, 0.3);
+    --header-bg: rgba(26, 15, 8, 0.9);
+  }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -300px; right: -300px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 122, 26, 0.15), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  header {
+    padding: 20px 0;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; white-space: nowrap;
+  }
+
+  .logo-icon {
+    width: 44px; height: 44px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 6px 20px var(--shadow-hover);
+    overflow: hidden; flex-shrink: 0;
+  }
+
+  .logo-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+  .logo-text {
+    font-family: Georgia, serif;
+    font-size: 22px; font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text); line-height: 1;
+  }
+
+  .logo-text span { color: var(--orange); }
+
+  nav { display: flex; gap: 28px; }
+
+  nav a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 15px; font-weight: 500;
+    transition: color 0.3s; white-space: nowrap;
+  }
+  nav a:hover { color: var(--orange); }
+
+  .header-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: #fff; text-decoration: none;
+    font-size: 14px; font-weight: 800;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px var(--shadow-hover);
+    white-space: nowrap;
+  }
+  .header-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px var(--shadow-hover); }
+
+  .hero { padding: 180px 0 100px; text-align: center; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 20px;
+    border: 1px solid var(--orange);
+    border-radius: 100px;
+    font-size: 13px; color: var(--orange);
+    margin-bottom: 28px;
+    background: var(--orange-soft);
+    font-weight: 700; letter-spacing: 1px;
+  }
+
+  .hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(48px, 10vw, 120px);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 .accent {
+    background: linear-gradient(135deg, var(--orange-light), var(--red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-muted);
+    max-width: 640px;
+    margin: 0 auto 44px; line-height: 1.7;
+  }
+
+  .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 18px 40px;
+    border-radius: 100px;
+    font-size: 15px; font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none; cursor: pointer; font-family: inherit;
+    min-height: 56px; text-align: center;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: #fff;
+    box-shadow: 0 12px 30px var(--shadow-hover);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 45px var(--shadow-hover); }
+
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-soft); }
+
+  .hero-divider {
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  section { padding: 90px 0; }
+
+  .section-head { text-align: center; margin-bottom: 50px; }
+
+  .section-label {
+    display: block;
+    font-size: 13px; letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px; font-weight: 700;
+  }
+
+  .section-title {
+    font-family: Georgia, serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800; letter-spacing: -2px; line-height: 1.1;
+  }
+
+  .section-title .accent { color: var(--orange); }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .dish {
+    position: relative;
+    background: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-soft) 100%);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+  }
+
+  .dish-photo {
+    height: 220px;
+    background: linear-gradient(135deg, rgba(255, 122, 26, 0.15), rgba(230, 57, 70, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .dish-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(255, 122, 26, 0.25), transparent 60%);
+  }
+
+  .dish-photo .icon {
+    font-size: 100px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dish-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dish-cta {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 2;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 100px;
+    box-shadow: 0 8px 20px rgba(255, 122, 26, 0.5);
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .dish-cta:hover {
+    transform: scale(1.06);
+    box-shadow: 0 10px 30px rgba(255, 122, 26, 0.7);
+  }
+
+  .dish-body {
+    padding: 28px 28px 30px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .dish-name {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .dish-desc {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .dish:hover {
+    border-color: var(--orange);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(255, 122, 26, 0.2), 0 0 0 1px var(--orange);
+  }
+
+  .dish:hover .dish-photo .icon {
+    transform: scale(1.1) rotate(-5deg);
+  }
+
+  .about { background: var(--bg-soft); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .about-visual {
+    aspect-ratio: 4 / 5;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-soft));
+    border: 1px solid var(--orange);
+    position: relative; overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .about-visual .icon { font-size: 110px; margin-bottom: 16px; }
+  .about-visual .text {
+    font-size: 14px; color: var(--text-muted);
+    padding: 0 20px;
+  }
+
+  .about-text {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .about-text h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(24px, 3.5vw, 38px);
+    font-weight: 800; letter-spacing: -1.5px;
+    line-height: 1.2; margin-bottom: 24px;
+  }
+  .about-text h2 .accent { color: var(--orange); }
+
+  .about-text p {
+    color: var(--text-muted);
+    font-size: 15px; line-height: 1.8; margin-bottom: 16px;
+  }
+
+  .about-points { list-style: none; margin-top: 28px; text-align: left; display: inline-block; }
+  .about-points li {
+    position: relative;
+    padding: 8px 0 8px 34px;
+    font-size: 15px; color: var(--text);
+  }
+  .about-points li::before {
+    content: '✨';
+    position: absolute; left: 0; top: 8px;
+    font-size: 18px;
+  }
+
+  .cta { padding: 100px 0; }
+
+  .cta-box {
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    border-radius: 28px;
+    padding: 80px 40px;
+    text-align: center;
+    color: #fff;
+    position: relative; overflow: hidden;
+    box-shadow: 0 30px 70px var(--shadow-hover);
+  }
+  .cta-box > * { position: relative; z-index: 1; }
+
+  .cta-box h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(30px, 6vw, 56px);
+    font-weight: 800; letter-spacing: -2px;
+    margin-bottom: 20px; line-height: 1;
+  }
+
+  .cta-box p {
+    font-size: 18px; opacity: 0.95;
+    max-width: 560px; margin: 0 auto 36px; line-height: 1.6;
+  }
+
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-dark {
+    background: #1a0f08; color: var(--orange);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  }
+  .btn-dark:hover { transform: translateY(-3px); background: #000; }
+
+  .contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .contact-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 28px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .contact-card:hover {
+    border-color: var(--orange);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  a.contact-card { text-decoration: none; color: inherit; display: block; cursor: pointer; }
+  a.contact-card .value { color: var(--orange); }
+
+  .contact-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+
+  .contact-card h3 {
+    font-size: 13px; color: var(--text-muted);
+    letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 12px;
+  }
+
+  .contact-card .value {
+    font-size: 17px; font-weight: 700;
+    color: var(--text); text-decoration: none;
+    display: block; transition: color 0.3s; line-height: 1.4;
+  }
+  a.value:hover { color: var(--orange); }
+
+  .contact-card .note {
+    font-size: 13px; color: var(--text-muted); margin-top: 6px;
+  }
+
+  footer {
+    padding: 50px 0 30px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  footer .footer-logo {
+    font-family: Georgia, serif;
+    font-size: 24px; font-weight: 800;
+    color: var(--text); margin-bottom: 14px;
+  }
+  footer .footer-logo span { color: var(--orange); }
+
+  @media (max-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .about-text {
+      grid-column: 1 / -1;
+      order: 3;
+      margin-top: 20px;
+    }
+    .about-visual { aspect-ratio: 4 / 3; }
+  }
+
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .menu-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 20px; }
+    section { padding: 60px 0; }
+    .hero { padding: 140px 0 60px; }
+    .cta-box { padding: 60px 28px; border-radius: 22px; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .dish { min-height: auto; }
+    .dish-photo { height: 200px; }
+    
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .about-visual {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      aspect-ratio: auto;
+      min-height: 340px;
+      padding: 30px 20px;
+    }
+    .about-visual .icon { font-size: 130px; margin-bottom: 20px; }
+    .about-visual .text { font-size: 16px; }
+
+    .about-text { order: 3; }
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 16px; }
+    header { padding: 14px 0; }
+    .logo-icon { width: 42px; height: 42px; }
+    .logo-text { font-size: 18px; }
+    .header-cta { padding: 10px 18px; font-size: 12px; }
+
+    .hero { padding: 120px 0 50px; }
+    section { padding: 50px 0; }
+    .hero-buttons { flex-direction: column; width: 100%; }
+    .btn { width: 100%; padding: 16px 28px; font-size: 14px; }
+
+    .dish-photo { height: 180px; }
+    .dish-photo .icon { font-size: 80px; }
+    .dish-body { padding: 22px 22px 24px; }
+    .dish-name { font-size: 20px; }
+    .dish-cta { font-size: 13px; padding: 8px 18px; bottom: 12px; right: 12px; }
+
+    .cta-box { padding: 50px 22px; border-radius: 20px; }
+    .cta-buttons { flex-direction: column; width: 100%; }
+
+    .about-visual {
+      min-height: 360px;
+      padding: 30px 16px;
+    }
+    .about-visual .icon { font-size: 140px; }
+    .about-visual .text { font-size: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <img src="images/logo.jpg" alt="Шашлычная">
+      </div>
+      <div class="logo-text">Шашлыч<span>ная</span></div>
+    </a>
+    <nav>
+      <a href="#menu">Меню</a>
+      <a href="#about">О нас</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a href="#booking" class="header-cta">Заказать</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">★ Два заведения в городе</div>
+    <h1>Шашлык<br><span class="accent">на мангале</span></h1>
+    <p>Любите блюда с дымком? Мы предлагаем широкий выбор мангального меню: от традиционного шашлыка и люля до деликатесной красной рыбы и сытной шаурмы. Дополните трапезу овощами гриль или порцией горячего картофеля фри.</p>
+    <div class="hero-buttons">
+      <a href="#menu" class="btn btn-primary">Смотреть меню</a>
+    </div>
+
+    <div class="hero-divider"></div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">✦ Меню</span>
+    </div>
+
+    <div class="menu-grid">
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🍖</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Шашлык из свинины</div>
+          <p class="dish-desc">Шея. Маринованный лук добавляется на выбор покупателя, бесплатно.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🍗</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Шашлык из мяса курицы</div>
+          <p class="dish-desc">Сочная курица на углях с ароматными специями.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🐟</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Стейк из семги</div>
+          <p class="dish-desc">Деликатесная красная рыба на углях.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🍔</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Бургер</div>
+          <p class="dish-desc">Фирменный бургер с сочной котлетой и свежими овощами.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🍡</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Люля-кебаб из мяса говядины</div>
+          <p class="dish-desc">Ароматный люля-кебаб на углях.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🌯</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Шаурма</div>
+          <p class="dish-desc">Свинина, курица или микс. Сытная и вкусная.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🍄‍🟫</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Шампиньоны на углях</div>
+          <p class="dish-desc">Ароматные шампиньоны на мангале. Идеальная закуска к шашлыку.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🥦</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Овощи на мангале</div>
+          <p class="dish-desc">Свежие овощи, запечённые на углях. Лёгкая и полезная закуска.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🫓</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Лаваш</div>
+          <p class="dish-desc">Свежий тонкий лаваш к шашлыку и закускам.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🥣</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Соус белый</div>
+          <p class="dish-desc">Домашний белый соус. Отлично подходит к любому блюду.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🍟</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Картофель фри</div>
+          <p class="dish-desc">Хрустящий картофель фри. К шашлыку — идеально.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🍹</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Морс</div>
+          <p class="dish-desc">Домашний вкус: клубника, вишня.</p>
+        </div>
+      </div>
+
+      <div class="dish">
+        <div class="dish-photo">
+          <div class="icon">🍺</div>
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Пиво</div>
+          <p class="dish-desc">Разливное и бутылочное. К шашлыку — то, что надо.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      
+      <div class="about-visual">
+        <div class="icon">🔥</div>
+        <div class="text">Здесь могла быть<br>фотография заведения</div>
+      </div>
+
+      <div class="about-text">
+        <h2>Устройте себе <span class="accent">праздник вкуса!</span></h2>
+        <p>Наши два кафе всегда готовы радовать вас любимыми блюдами:</p>
+
+        <ul class="about-points">
+          <li>Ароматный шашлык с дымком;</li>
+          <li>Сочный люля-кебаб;</li>
+          <li>Овощи-гриль, приготовленные на мангале;</li>
+          <li>Фирменные бургеры и хрустящий картофель фри;</li>
+          <li>Освежающие напитки на любой вкус.</li>
+        </ul>
+      </div>
+
+      <div class="about-visual">
+        <div class="icon">🍢</div>
+        <div class="text">Здесь могла быть<br>вторая фотография</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="booking">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Закажите сейчас</h2>
+      <p>Работаем ежедневно с 11 утра.</p>
+      <div class="cta-buttons">
+        <a href="tel:+79210423878" class="btn btn-dark">📞 Позвонить</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacts">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-label">✦ Контакты</span>
+      <h2 class="section-title">Как нас <span class="accent">найти</span></h2>
+    </div>
+
+    <div class="contacts-grid">
+      <a href="https://yandex.ru/maps/org/shashlychnaya/36257008439/" target="_blank" rel="noopener" class="contact-card">
+        <span class="contact-icon">📍</span>
+        <div class="value">ул. Бардина, 27А</div>
+        <div class="note">Оленегорск, 184536</div>
+      </a>
+
+      <div class="contact-card">
+        <span class="contact-icon">📍</span>
+        <div class="value">Парковая ул., 13А</div>
+        <div class="note">Оленегорск</div>
+      </div>
+
+      <div class="contact-card">
+        <span class="contact-icon">🕐</span>
+        <h3>Часы работы</h3>
+        <div class="value">Работаем с 11.00 до 21.00</div>
+      </div>
+
+      <div class="contact-card">
+        <span class="contact-icon">📞</span>
+        <h3>Телефон</h3>
+        <a href="tel:+79210423878" class="value">+7 (921) 042-38-78</a>
+        <div class="note">Заказ и доставка</div>
+      </div>
+
+      <a href="https://vk.com/shashlychnaya_olenegorsk" target="_blank" rel="noopener" class="contact-card">
+        <span class="contact-icon">🔵</span>
+        <h3>ВКонтакте</h3>
+        <div class="value">Мы в ВК</div>
+        <div class="note">Новости и акции</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">Шашлыч<span>ная</span></div>
+    © 2026 «Шашлычная» · Оленегорск: ул. Бардина, 27А и Парковая, 13А
+  </div>
+</footer>
+
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('section:not(.hero)').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(40px)';
+      section.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
+      observer.observe(section);
+    });
+
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, i * 80);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.dish, .contact-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+      cardObserver.observe(el);
+    });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const headerHeight = document.querySelector('header').offsetHeight;
+        const targetPos = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+        window.scrollTo({ top: targetPos, behavior: prefersReduced ? 'auto' : 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
