@@ -320,37 +320,29 @@
 
   .about { background: var(--bg-soft); }
 
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr 1fr;
-    gap: 30px;
-    align-items: center;
+  .about-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
   }
 
-  .about-visual {
-    aspect-ratio: 4 / 5;
+  .about-photo {
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 16 / 10;
     border-radius: 24px;
-    background: linear-gradient(135deg, var(--bg-card), var(--bg-soft));
+    overflow: hidden;
     border: 1px solid var(--orange);
-    position: relative; overflow: hidden;
     box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
+    margin: 0 auto 40px;
+    position: relative;
   }
 
-  .about-visual .icon { font-size: 110px; margin-bottom: 16px; }
-  .about-visual .text {
-    font-size: 14px; color: var(--text-muted);
-    padding: 0 20px;
-  }
-
-  .about-text {
-    text-align: center;
-    padding: 0 10px;
+  .about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .about-text h2 {
@@ -468,19 +460,6 @@
   }
   footer .footer-logo span { color: var(--orange); }
 
-  @media (max-width: 1024px) {
-    .about-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    .about-text {
-      grid-column: 1 / -1;
-      order: 3;
-      margin-top: 20px;
-    }
-    .about-visual { aspect-ratio: 4 / 3; }
-  }
-
   @media (max-width: 900px) {
     nav { display: none; }
     .menu-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
@@ -493,25 +472,7 @@
     .cta-box { padding: 60px 28px; border-radius: 22px; }
     .menu-grid { grid-template-columns: 1fr; }
     .dish { min-height: auto; }
-    .dish-photo { height: 200px; }
-    
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-    
-    .about-visual {
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
-      aspect-ratio: auto;
-      min-height: 340px;
-      padding: 30px 20px;
-    }
-    .about-visual .icon { font-size: 130px; margin-bottom: 20px; }
-    .about-visual .text { font-size: 16px; }
-
-    .about-text { order: 3; }
+    .dish-photo { height: 220px; }
   }
 
   @media (max-width: 640px) {
@@ -526,21 +487,13 @@
     .hero-buttons { flex-direction: column; width: 100%; }
     .btn { width: 100%; padding: 16px 28px; font-size: 14px; }
 
-    .dish-photo { height: 180px; }
-    .dish-photo .icon { font-size: 80px; }
+    .dish-photo { height: 200px; }
     .dish-body { padding: 22px 22px 24px; }
     .dish-name { font-size: 20px; }
     .dish-cta { font-size: 13px; padding: 8px 18px; bottom: 12px; right: 12px; }
 
     .cta-box { padding: 50px 22px; border-radius: 20px; }
     .cta-buttons { flex-direction: column; width: 100%; }
-
-    .about-visual {
-      min-height: 360px;
-      padding: 30px 16px;
-    }
-    .about-visual .icon { font-size: 140px; }
-    .about-visual .text { font-size: 16px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -592,9 +545,10 @@
 
     <div class="menu-grid">
 
+      <!-- 1. Шашлык из свинины -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🍖</div>
+          <img src="images/shashlik-svinina.jpg" alt="Шашлык из свинины">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
@@ -603,9 +557,10 @@
         </div>
       </div>
 
+      <!-- 2. Шашлык из мяса курицы -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🍗</div>
+          <img src="images/shashlik-kurica.jpg" alt="Шашлык из мяса курицы">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
@@ -614,9 +569,10 @@
         </div>
       </div>
 
+      <!-- 3. Стейк из семги -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🐟</div>
+          <img src="images/stejk-semga.jpg" alt="Стейк из семги">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
@@ -625,20 +581,22 @@
         </div>
       </div>
 
+      <!-- 4. Бртуч (замена бургера) -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🍔</div>
+          <img src="images/brtuch.jpg" alt="Бртуч">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
-          <div class="dish-name">Бургер</div>
-          <p class="dish-desc">Фирменный бургер с сочной котлетой и свежими овощами.</p>
+          <div class="dish-name">Бртуч</div>
+          <p class="dish-desc">Люля-кебаб в лаваше с луком и зеленью.</p>
         </div>
       </div>
 
+      <!-- 5. Люля-кебаб из мяса говядины -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🐂</div>
+          <img src="images/lyulya-kebab.jpg" alt="Люля-кебаб из мяса говядины">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
@@ -647,9 +605,10 @@
         </div>
       </div>
 
+      <!-- 6. Шаурма -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🌯</div>
+          <img src="images/shaurma.jpg" alt="Шаурма">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
@@ -658,20 +617,22 @@
         </div>
       </div>
 
+      <!-- 7. Куриные крылышки (замена шампиньонов) -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🍄‍🟫</div>
+          <img src="images/kurinye-krylyshki.jpg" alt="Куриные крылышки">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
-          <div class="dish-name">Шампиньоны на углях</div>
-          <p class="dish-desc">Ароматные шампиньоны на мангале. Идеальная закуска к шашлыку.</p>
+          <div class="dish-name">Куриные крылышки</div>
+          <p class="dish-desc">Ароматные куриные крылышки на мангале.</p>
         </div>
       </div>
 
+      <!-- 8. Овощи на мангале -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🥦</div>
+          <img src="images/ovoshchi-mangal.jpg" alt="Овощи на мангале">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
@@ -680,9 +641,10 @@
         </div>
       </div>
 
+      <!-- 9. Лаваш -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🫓</div>
+          <img src="images/lavash.jpg" alt="Лаваш">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
@@ -691,20 +653,22 @@
         </div>
       </div>
 
+      <!-- 10. Соуса: белый, красный -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🥣</div>
+          <img src="images/sousa.jpg" alt="Соуса: белый, красный">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
-          <div class="dish-name">Соус белый</div>
-          <p class="dish-desc">Домашний белый соус. Отлично подходит к любому блюду.</p>
+          <div class="dish-name">Соуса: белый, красный</div>
+          <p class="dish-desc">Домашние соусы. Отлично подходят к любому блюду.</p>
         </div>
       </div>
 
+      <!-- 11. Картофель фри -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🍟</div>
+          <img src="images/kartofel-fri.jpg" alt="Картофель фри">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
@@ -713,25 +677,51 @@
         </div>
       </div>
 
+      <!-- 12. Морс: вишня – клубника -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🍹</div>
+          <img src="images/mors.jpg" alt="Морс: вишня – клубника">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
-          <div class="dish-name">Морс</div>
-          <p class="dish-desc">Домашний вкус: клубника, вишня.</p>
+          <div class="dish-name">Морс: вишня – клубника</div>
+          <p class="dish-desc">Домашний морс. Освежающий вкус вишни и клубники.</p>
         </div>
       </div>
 
+      <!-- 13. Пенный напиток -->
       <div class="dish">
         <div class="dish-photo">
-          <div class="icon">🍺</div>
+          <img src="images/pennyj-napitok.jpg" alt="Пенный напиток">
           <a href="#booking" class="dish-cta">Уточнить</a>
         </div>
         <div class="dish-body">
           <div class="dish-name">Пенный напиток</div>
           <p class="dish-desc">Освежающий пенный напиток. К шашлыку — то, что надо.</p>
+        </div>
+      </div>
+
+      <!-- 14. Наггетсы -->
+      <div class="dish">
+        <div class="dish-photo">
+          <img src="images/naggetsy.jpg" alt="Наггетсы">
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Наггетсы</div>
+          <p class="dish-desc">Хрустящие наггетсы. Отличная закуска.</p>
+        </div>
+      </div>
+
+      <!-- 15. Сырные палочки и картофельные шарики -->
+      <div class="dish">
+        <div class="dish-photo">
+          <img src="images/syrnye-palochki.jpg" alt="Сырные палочки и картофельные шарики">
+          <a href="#booking" class="dish-cta">Уточнить</a>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">Сырные палочки и картофельные шарики</div>
+          <p class="dish-desc">Хрустящая закуска к столу.</p>
         </div>
       </div>
 
@@ -741,11 +731,11 @@
 
 <section class="about" id="about">
   <div class="container">
-    <div class="about-grid">
-      
-      <div class="about-visual">
-        <div class="icon">🔥</div>
-        <div class="text">Здесь могла быть<br>фотография заведения</div>
+    <div class="about-wrap">
+
+      <!-- Одна фотография заведения по центру -->
+      <div class="about-photo">
+        <img src="images/zavedenie.jpg" alt="Шашлычная — блюда на мангале">
       </div>
 
       <div class="about-text">
@@ -759,11 +749,6 @@
           <li>Фирменные бургеры и хрустящий картофель фри;</li>
           <li>Освежающие напитки на любой вкус.</li>
         </ul>
-      </div>
-
-      <div class="about-visual">
-        <div class="icon">🍢</div>
-        <div class="text">Здесь могла быть<br>вторая фотография</div>
       </div>
 
     </div>
