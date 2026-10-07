@@ -445,6 +445,24 @@
     font-size: 13px; color: var(--text-muted); margin-top: 6px;
   }
 
+  /* Телефон под адресом — аккуратный, неброский */
+  .contact-phone {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    transition: color 0.3s ease;
+    border-bottom: 1px dashed rgba(184, 153, 128, 0.4);
+    padding-bottom: 2px;
+  }
+  .contact-phone:hover {
+    color: var(--orange);
+    border-bottom-color: var(--orange);
+  }
+
   footer {
     padding: 50px 0 30px;
     text-align: center;
@@ -545,7 +563,6 @@
 
     <div class="menu-grid">
 
-      <!-- 1. Шашлык из свинины -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/shashlik-svinina.jpg" alt="Шашлык из свинины">
@@ -557,7 +574,6 @@
         </div>
       </div>
 
-      <!-- 2. Шашлык из мяса курицы -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/shashlik-kurica.jpg" alt="Шашлык из мяса курицы">
@@ -569,7 +585,6 @@
         </div>
       </div>
 
-      <!-- 3. Стейк из семги -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/stejk-semga.jpg" alt="Стейк из семги">
@@ -581,7 +596,6 @@
         </div>
       </div>
 
-      <!-- 4. Бртуч (замена бургера) -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/brtuch.jpg" alt="Бртуч">
@@ -593,7 +607,6 @@
         </div>
       </div>
 
-      <!-- 5. Люля-кебаб из мяса говядины -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/lyulya-kebab.jpg" alt="Люля-кебаб из мяса говядины">
@@ -605,7 +618,6 @@
         </div>
       </div>
 
-      <!-- 6. Шаурма -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/shaurma.jpg" alt="Шаурма">
@@ -617,7 +629,6 @@
         </div>
       </div>
 
-      <!-- 7. Куриные крылышки (замена шампиньонов) -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/kurinye-krylyshki.jpg" alt="Куриные крылышки">
@@ -629,7 +640,6 @@
         </div>
       </div>
 
-      <!-- 8. Овощи на мангале -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/ovoshchi-mangal.jpg" alt="Овощи на мангале">
@@ -641,7 +651,6 @@
         </div>
       </div>
 
-      <!-- 9. Лаваш -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/lavash.jpg" alt="Лаваш">
@@ -653,7 +662,6 @@
         </div>
       </div>
 
-      <!-- 10. Соуса: белый, красный -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/sousa.jpg" alt="Соуса: белый, красный">
@@ -665,7 +673,6 @@
         </div>
       </div>
 
-      <!-- 11. Картофель фри -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/kartofel-fri.jpg" alt="Картофель фри">
@@ -677,7 +684,6 @@
         </div>
       </div>
 
-      <!-- 12. Морс: вишня – клубника -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/mors.jpg" alt="Морс: вишня – клубника">
@@ -689,7 +695,6 @@
         </div>
       </div>
 
-      <!-- 13. Пенный напиток -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/pennyj-napitok.jpg" alt="Пенный напиток">
@@ -701,7 +706,6 @@
         </div>
       </div>
 
-      <!-- 14. Наггетсы -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/naggetsy.jpg" alt="Наггетсы">
@@ -713,7 +717,6 @@
         </div>
       </div>
 
-      <!-- 15. Сырные палочки и картофельные шарики -->
       <div class="dish">
         <div class="dish-photo">
           <img src="images/syrnye-palochki.jpg" alt="Сырные палочки и картофельные шарики">
@@ -733,7 +736,6 @@
   <div class="container">
     <div class="about-wrap">
 
-      <!-- Одна фотография заведения по центру -->
       <div class="about-photo">
         <img src="images/zavedenie.jpg" alt="Шашлычная — блюда на мангале">
       </div>
@@ -775,16 +777,19 @@
     </div>
 
     <div class="contacts-grid">
-      <a href="https://yandex.ru/maps/org/shashlychnaya/36257008439/" target="_blank" rel="noopener" class="contact-card">
+
+      <div class="contact-card">
         <span class="contact-icon">📍</span>
         <div class="value">ул. Бардина, 27А</div>
-        <div class="note">Оленегорск, 184536</div>
-      </a>
+        <div class="note">Оленегорск</div>
+        <a href="tel:+79646866556" class="contact-phone">+7 (964) 686-65-56</a>
+      </div>
 
       <div class="contact-card">
         <span class="contact-icon">📍</span>
         <div class="value">Парковая ул., 13А</div>
         <div class="note">Оленегорск</div>
+        <a href="tel:+79210423878" class="contact-phone">+7 (921) 042-38-78</a>
       </div>
 
       <div class="contact-card">
@@ -793,19 +798,13 @@
         <div class="value">Работаем с 11.00 до 21.00</div>
       </div>
 
-      <div class="contact-card">
-        <span class="contact-icon">📞</span>
-        <h3>Телефон</h3>
-        <a href="tel:+79210423878" class="value">+7 (921) 042-38-78</a>
-        <div class="note">Заказ и доставка</div>
-      </div>
-
       <a href="https://vk.ru/shashlichnaya_olenegorsk" target="_blank" rel="noopener" class="contact-card">
         <span class="contact-icon">🔵</span>
         <h3>ВКонтакте</h3>
         <div class="value">Мы в ВК</div>
         <div class="note">Новости и акции</div>
       </a>
+
     </div>
   </div>
 </section>
@@ -864,7 +863,7 @@
       if (target) {
         e.preventDefault();
         const headerHeight = document.querySelector('header').offsetHeight;
-        const targetPos = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+        const targetPos = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
         window.scrollTo({ top: targetPos, behavior: prefersReduced ? 'auto' : 'smooth' });
       }
     });
